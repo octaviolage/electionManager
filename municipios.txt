@@ -1,0 +1,2 @@
+Rio de Janeiro; Rio de Janeiro; 690000; 30
+Belo Horizonte; Minas Gerais; 630000; 28
