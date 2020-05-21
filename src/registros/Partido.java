@@ -1,13 +1,11 @@
 package registros;
 
-import java.util.ArrayList;
-import java.util.List;
+import registros.Registro;
 
-public class Partido {
+public class Partido extends Registro{
 	
 	private String nome;
 	private String sigla;
-	private List<Candidato> candidatos = new ArrayList<Candidato>();
 	
 	public Partido(String linha) {
 		String[] palavra = linha.split("; ");
@@ -17,10 +15,6 @@ public class Partido {
 	
 	public String getSigla() {
 		return this.sigla;
-	}
-	
-	public void setCandidatos(Candidato candidato) {
-		this.candidatos.add(candidato);
 	}
 
 	@Override

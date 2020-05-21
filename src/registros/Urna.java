@@ -1,14 +1,10 @@
 package registros;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Urna {
+public class Urna extends Registro{
 
 	private String municipio;
 	private int zona;
 	private int secao;
-	private List<Eleitor> eleitores = new ArrayList<Eleitor>();
 	
 	public Urna(String linha) {
 		String[] palavra = linha.split("; ");
@@ -17,16 +13,9 @@ public class Urna {
 		this.secao = Integer.parseInt(palavra[2]);
 	}
 	
-	public int getZona() {
-		return zona;
-	}
-
-	public int getSecao() {
-		return secao;
-	}
-
-	public void setEleitores(Eleitor eleitor) {
-		this.eleitores.add(eleitor);
+	@Override
+	public String getNome() {
+		return Integer.toString(zona)  + Integer.toString(secao);
 	}
 
 	public String getMunicipio() {

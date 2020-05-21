@@ -1,6 +1,8 @@
 package registros;
 
-public class Candidato{
+import registros.Registro;
+
+public class Candidato extends Registro{
 	
 	private String nome;
 	private int numero;

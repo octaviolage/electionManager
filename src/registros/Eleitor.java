@@ -1,8 +1,8 @@
 package registros;
 
-import aplicacao.Arquivo;
+import registros.Registro;
 
-public class Eleitor {
+public class Eleitor extends Registro{
 
 	private String nome;
 	private long titulo;

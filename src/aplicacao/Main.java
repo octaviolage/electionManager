@@ -1,18 +1,16 @@
 package aplicacao;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import registros.*;
 
 public class Main {
 
-	static List<Municipio> municipios = new ArrayList<Municipio>();
-	static List<Partido> partidos = new ArrayList<Partido>();
-
 	public static void main(String[] args) throws InterruptedException {
+		
+			mainMenu();
+	}
 
+	public static void mainMenu() throws InterruptedException {
+		
 		Scanner ler = new Scanner(System.in);
 		int opcao = 0;
 		while (opcao >= 0) {
@@ -26,115 +24,108 @@ public class Main {
 			opcao = ler.nextInt();
 			switch (opcao) {
 			case 1:
-				cadastroMunicipio();
-				cadastroPartido();
-				cadastroCandidato();
-				cadastroUrna();
-				cadastroEleitor();
+				cadastrosMenu();
 				break;
+				
+			case 2:
+
+				break;
+				
 			case 0:
 				System.exit(1);
+				
 			default:
 				System.out.println(">>>Opcao inválida!<<<");
-				System.out.println("Recarregando...");
-				opcao = 0;
+				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
+				mainMenu();
 			}
-
 		}
-
+		
 	}
-
-	public static void cadastroMunicipio() {
-		Arquivo arquivo = new Arquivo();
-
-		arquivo.abrirArquivo("municipios.txt");
-		String buffer = arquivo.ler();
-		while (buffer != null) {
-			Municipio municipio = new Municipio(buffer);
-			municipios.add(municipio);
-			buffer = arquivo.ler();
-		}
-		arquivo.fecharArquivo();
-		System.out.println("Municipios cadastrado com sucesso!");
-	}
-
-	public static void cadastroCandidato() {
-		Arquivo arquivo = new Arquivo();
-
-		arquivo.abrirArquivo("candidatos.txt");
-		String buffer = arquivo.ler();
-		while (buffer != null) {
-			Candidato candidato = new Candidato(buffer);
-			for (int i = 0; i < partidos.size(); i++) {
-				if (candidato.getPartido() == partidos.get(i).getSigla())
-					;
-				partidos.get(i).setCandidatos(candidato);
+	
+public static void cadastrosMenu() throws InterruptedException {
+		
+		Scanner ler = new Scanner(System.in);
+		int opcao = 0;
+		while (opcao >= 0) {
+			System.out.println("=====Cadastro de novas eleicoes=====");
+			System.out.println();
+			System.out.println("Escolha o que deseja cadastrar:");
+			System.out.println("1- Municipios");
+			System.out.println("2- Partidos");
+			System.out.println("3- Urnas");
+			System.out.println("4- Candidatos");
+			System.out.println("5- Eleitores");
+			System.out.println("6- Sequencia completa");
+			System.out.println("7- Exportar aquivos p/ urnas");
+			System.out.println("8- Voltar ao menu principal");
+			System.out.println("0- Sair da aplicacao");
+			System.out.printf("Sua escolha:");
+			opcao = ler.nextInt();
+			switch (opcao) {
+			case 1:
+				Funcionalidade.cadastroMunicipio();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
+				break;
+				
+			case 2:
+				Funcionalidade.cadastroPartido();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
+				break;
+				
+			case 3:
+				Funcionalidade.cadastroUrna();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
+				break;
+				
+			case 4:
+				Funcionalidade.cadastroCandidato();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
+				break;
+				
+			case 5:
+				Funcionalidade.cadastroEleitor();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
+				break;
+				
+			case 6:
+				System.out.println("Buscando por arquivo de municipios");
+				Funcionalidade.cadastroMunicipio();
+				System.out.println("Buscando por arquivo de partidos");
+				Funcionalidade.cadastroPartido();
+				System.out.println("Buscando por arquivo de urnas");
+				Funcionalidade.cadastroUrna();
+				System.out.println("Buscando por arquivo de candidatos");
+				Funcionalidade.cadastroCandidato();
+				System.out.println("Buscando por arquivo de eleitores");
+				Funcionalidade.cadastroEleitor();
+				break;
+				
+			case 7:
+				Funcionalidade.exportar();
+				break;
+				
+			case 8:
+				mainMenu();
+				break;
+				
+			case 0:
+				System.exit(1);
+				
+			default:
+				System.out.println(">>>Opcao inválida!<<<");
+				System.out.println("Voltando ao menu principal...");
+				Thread.sleep(3000);
+				cadastrosMenu();
 			}
-			for (int i = 0; i < municipios.size(); i++) {
-				if (candidato.getMunicipio() == municipios.get(i).getNome())
-					;
-				municipios.get(i).setCandidatos(candidato);
-			}
-			buffer = arquivo.ler();
 		}
-		arquivo.fecharArquivo();
-		System.out.println("Candidatos cadastrados com sucesso!");
-	}
-
-	public static void cadastroEleitor() {
-		Arquivo arquivo = new Arquivo();
-
-		arquivo.abrirArquivo("eleitores.txt");
-		String buffer = arquivo.ler();
-		while (buffer != null) {
-			Eleitor eleitor = new Eleitor(buffer);
-			for (int i = 0; i < municipios.size(); i++) {
-				if (eleitor.getMunicipio() == municipios.get(i).getNome()) {
-					for (int j = 0; j < municipios.size(); j++) {
-						if (eleitor.getZona() == municipios.get(i).getUrnas().get(j).getZona() 
-								& eleitor.getSecao() == municipios.get(i).getUrnas().get(j).getSecao()) {
-							municipios.get(i).setEleitorUrna(eleitor, j);
-						}
-					}
-				}
-			}
-			buffer = arquivo.ler();
-		}
-		arquivo.fecharArquivo();
-		System.out.println("Eleitores cadastrados com sucesso!");
-	}
-
-	public static void cadastroPartido() {
-		Arquivo arquivo = new Arquivo();
-
-		arquivo.abrirArquivo("partidos.txt");
-		String buffer = arquivo.ler();
-		while (buffer != null) {
-			Partido partido = new Partido(buffer);
-			partidos.add(partido);
-			buffer = arquivo.ler();
-		}
-		arquivo.fecharArquivo();
-		System.out.println("Partidos cadastrados com sucesso!");
-	}
-
-	public static void cadastroUrna() {
-		Arquivo arquivo = new Arquivo();
-
-		arquivo.abrirArquivo("urnas.txt");
-		String buffer = arquivo.ler();
-		while (buffer != null) {
-			Urna urna = new Urna(buffer);
-			for (int i = 0; i < municipios.size(); i++) {
-				if (urna.getMunicipio() == municipios.get(i).getNome()) {
-					municipios.get(i).setUrna(urna);
-				}
-			}
-			buffer = arquivo.ler();
-		}
-		arquivo.fecharArquivo();
-		System.out.println("Urnas cadastrados com sucesso!");
+		
 	}
 
 }
