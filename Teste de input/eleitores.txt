@@ -1,0 +1,9 @@
+Andre Cota; 458547465; Belo Horizonte; 454; 446
+Armando Amorim; 667898527; Rio de Janeiro; 455; 447
+Gustavo Carvalho; 5432165498; Rio de Janeiro; 475; 447
+Fernanda Soares; 458547465; Belo Horizonte; 454; 446
+Roberto Costa; 23344523423; Belo Horizonte; 454; 446
+Natalia Lima; 461536548; Rio de Janeiro; 475; 447
+Wagner Silma; 218461536; Rio de Janeiro; 475; 447
+Renata Nunes; 375999888; Rio de Janeiro; 455; 447
+Octavio Lage; 516548415; Sete Lagoas; 000; 000

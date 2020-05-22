@@ -1,11 +1,15 @@
 package registros;
 
+import arquivos.ArquivoEscrever;
+import registros.pilha.Pilha;
+
 public class Municipio extends Registro{
 
 	private String nome;
 	private String estado;
 	private int habitantes;
 	private int vagasVereador;
+	private Pilha candidatos = new Pilha();
 
 	public Municipio(String linha) {
 		String[] palavra = linha.split("; ");
@@ -16,12 +20,32 @@ public class Municipio extends Registro{
 	}
 	
 	@Override
-	public String getNome() {
+	public void exportar() {
+		ArquivoEscrever arquivo = new ArquivoEscrever();
+		Pilha pilha = candidatos;
+		Registro aux = pilha.desempilhar();
+		arquivo.abrirArquivo(nome +".txt");
+		arquivo.escrever(toString());
+		while(aux != null) {
+			arquivo.escrever(aux.toString());
+			aux = pilha.desempilhar();
+		}
+		arquivo.fecharArquivo();
+		
+	}
+	
+	@Override
+	public void setRegistro(Registro candidato) {
+		candidatos.empilhar(candidato);
+	}
+	
+	@Override
+	public String getComparacao() {
 		return nome;
 	}
 	
 	@Override
 	public String toString() {
-		return nome + "; " + estado + "; " + habitantes + "; " + vagasVereador;
+		return nome + "; " + estado + "; " + vagasVereador;
 	}
 }

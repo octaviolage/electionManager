@@ -14,72 +14,61 @@ public class Arvore {
 		return (this.raiz == null) ? true : false;
 	}
 
-	private Nodo adicionar(Nodo raizArvore, Registro registro)
-    {
-        if (raizArvore == null)
-            raizArvore = new Nodo(registro);
-        else
-        {
-            if (raizArvore.item.getNome().compareToIgnoreCase(registro.getNome()) > 0)
-                raizArvore.esquerda = adicionar(raizArvore.esquerda, registro);
-            else
-            {
-                if (raizArvore.item.getNome().compareToIgnoreCase(registro.getNome()) < 0)
-                    raizArvore.direita = adicionar(raizArvore.direita, registro);
-                else
-                    System.out.println("Registro " + registro.getNome() + ", já havia sido cadastrado");
-            }
-        }
-        return raizArvore;
-    }
+	private Nodo adicionar(Nodo raizArvore, Registro registro) {
+		if (raizArvore == null)
+			raizArvore = new Nodo(registro);
+		else {
+			if (raizArvore.item.getComparacao().compareToIgnoreCase(registro.getComparacao()) > 0)
+				raizArvore.esquerda = adicionar(raizArvore.esquerda, registro);
+			else {
+				if (raizArvore.item.getComparacao().compareToIgnoreCase(registro.getComparacao()) < 0)
+					raizArvore.direita = adicionar(raizArvore.direita, registro);
+				else
+					System.out.println("Registro " + registro.getComparacao() + ", já havia sido cadastrado");
+			}
+		}
+		return raizArvore;
+	}
 
 	public void inserir(Registro alunoNovo) {
 		this.raiz = adicionar(this.raiz, alunoNovo);
 	}
 
-	public Registro menorNumeroMatricula() {
-		Nodo aux = raiz;
-		while (aux.esquerda != null) {
-			aux = aux.esquerda;
-		}
-		return aux.item;
-	}
-/*
-	private Nodo pesquisar(Nodo raizArvore, int matricula) {
+	private Nodo pesquisar(Nodo raizArvore, String nome) {
 
-		if (!arvoreVazia()) {
-			if (raizArvore.item.getNumMatricula() == matricula) {
+		if (!arvoreVazia() && raizArvore != null) {
+			int controlador = raizArvore.item.getComparacao().compareToIgnoreCase(nome);
+			if (controlador == 0) {
 				return raizArvore;
-			} else if (raizArvore.item.getNumMatricula() < matricula) {
-				return pesquisar(raizArvore.direita, matricula);
+			} else if (controlador < 0) {
+				return pesquisar(raizArvore.direita, nome);
 			} else {
-				return pesquisar(raizArvore.esquerda, matricula);
+				return pesquisar(raizArvore.esquerda, nome);
 			}
 
 		} else
 			return null;
 	}
 
-	public Registro buscar(int matricula) {
-		return pesquisar(raiz, matricula).item;
+	public Registro buscar(String nome) {
+		if (pesquisar(raiz, nome) != null)
+			return pesquisar(raiz, nome).item;
+		return null;
 	}
-	*/
-	
-	private void imprimirMenorMaior(Nodo raizArvore) {
-    	
-    	if(!arvoreVazia()) {
-    		if(raizArvore != null){
-    			imprimirMenorMaior(raizArvore.esquerda);
-    			raizArvore.item.toString();
-    			imprimirMenorMaior(raizArvore.direita);
-    		}
-    	}
-    	else
-    		System.out.println("Arvore vázia");
-    }
-    
-    public void imprimirEmOrdem() {
-    	
-    	imprimirMenorMaior(raiz);
-    }
+
+	private String arrayNomes(Nodo raizArvore) {
+		String aux = "";
+		if (!arvoreVazia()) {
+			if (raizArvore != null) {
+				aux += arrayNomes(raizArvore.esquerda);
+				aux += arrayNomes(raizArvore.direita);
+				aux += raizArvore.item.getComparacao() + ";";
+			}
+		}
+		return aux;
+	}
+
+	public String[] getNomes() {
+		return arrayNomes(raiz).split(";");
+	}
 }

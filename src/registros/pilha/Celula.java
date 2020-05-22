@@ -1,4 +1,4 @@
-package registros.lista;
+package registros.pilha;
 
 import registros.Registro;
 

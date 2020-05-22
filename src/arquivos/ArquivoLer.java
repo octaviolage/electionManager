@@ -1,27 +1,16 @@
-package aplicacao;
+package arquivos;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Arquivo {
+public class ArquivoLer {
 
 	BufferedReader arquivo;
-	FileWriter saida;
 	Scanner entrada = new Scanner(System.in);
-
-	public void criarArquivo(String nomeArquivo) {
-
-		try {
-			saida = new FileWriter(nomeArquivo);
-		} catch (IOException excecao) {
-			System.out.println("Erro na criacao do arquivo: " + excecao);
-		}
-	}
 
 	public void abrirArquivo(String nomeArquivo) {
 
@@ -57,15 +46,6 @@ public class Arquivo {
 			return null;
 		}
 		return linha;
-	}
-
-	public void escrever(String textoEntrada) {
-
-		try {
-			saida.write(textoEntrada);
-		} catch (IOException excecao) {
-			System.out.println("Erro de entrada/saída " + excecao);
-		}
 	}
 
 }

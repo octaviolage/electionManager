@@ -18,17 +18,18 @@ public class Candidato extends Registro{
 		this.partido = palavra[3];
 		this.cargo = palavra[4].charAt(0);
 	}
-	
-	public String getMunicipio() {
+	@Override
+	public String getComparacao() {
 		return municipio;
 	}
 
-	public String getPartido() {
-		return partido;
+	@Override
+	public String getNome() {
+		return nome;
 	}
 
 	@Override
 	public String toString(){
-		return nome + "; " + numero + "; " + municipio + "; " + partido + "; " + cargo;
+		return nome + "; " + numero + "; " + partido + "; " + cargo;
 	}
 }

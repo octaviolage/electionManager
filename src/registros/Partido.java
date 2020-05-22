@@ -12,10 +12,6 @@ public class Partido extends Registro{
 		this.nome = palavra[0];
 		this.sigla = palavra[1];
 	}
-	
-	public String getSigla() {
-		return this.sigla;
-	}
 
 	@Override
 	public String toString() {

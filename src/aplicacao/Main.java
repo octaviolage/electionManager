@@ -14,6 +14,7 @@ public class Main {
 		Scanner ler = new Scanner(System.in);
 		int opcao = 0;
 		while (opcao >= 0) {
+			limpaTela();
 			System.out.println("=====Modulo TRE Eleicoes municipais 2020!=====");
 			System.out.println();
 			System.out.println("Escolha uma opção abaixo:");
@@ -35,7 +36,7 @@ public class Main {
 				System.exit(1);
 				
 			default:
-				System.out.println(">>>Opcao inválida!<<<");
+				System.err.println(">>>Opcao inválida!<<<");
 				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
 				mainMenu();
@@ -49,6 +50,7 @@ public static void cadastrosMenu() throws InterruptedException {
 		Scanner ler = new Scanner(System.in);
 		int opcao = 0;
 		while (opcao >= 0) {
+			limpaTela();
 			System.out.println("=====Cadastro de novas eleicoes=====");
 			System.out.println();
 			System.out.println("Escolha o que deseja cadastrar:");
@@ -65,50 +67,61 @@ public static void cadastrosMenu() throws InterruptedException {
 			opcao = ler.nextInt();
 			switch (opcao) {
 			case 1:
-				Funcionalidade.cadastroMunicipio();
+				limpaTela();
+				Funcionalidades.cadastroMunicipio();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 2:
-				Funcionalidade.cadastroPartido();
+				limpaTela();
+				Funcionalidades.cadastroPartido();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 3:
-				Funcionalidade.cadastroUrna();
+				limpaTela();
+				Funcionalidades.cadastroUrna();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 4:
-				Funcionalidade.cadastroCandidato();
+				limpaTela();
+				Funcionalidades.cadastroCandidato();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 5:
-				Funcionalidade.cadastroEleitor();
+				limpaTela();
+				Funcionalidades.cadastroEleitor();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 6:
+				limpaTela();
 				System.out.println("Buscando por arquivo de municipios");
-				Funcionalidade.cadastroMunicipio();
+				Funcionalidades.cadastroMunicipio();
 				System.out.println("Buscando por arquivo de partidos");
-				Funcionalidade.cadastroPartido();
+				Funcionalidades.cadastroPartido();
 				System.out.println("Buscando por arquivo de urnas");
-				Funcionalidade.cadastroUrna();
+				Funcionalidades.cadastroUrna();
 				System.out.println("Buscando por arquivo de candidatos");
-				Funcionalidade.cadastroCandidato();
+				Funcionalidades.cadastroCandidato();
 				System.out.println("Buscando por arquivo de eleitores");
-				Funcionalidade.cadastroEleitor();
+				Funcionalidades.cadastroEleitor();
+				System.out.println("Voltando ao menu anterior...");
+				Thread.sleep(3000);
 				break;
 				
 			case 7:
-				Funcionalidade.exportar();
+				limpaTela();
+				Funcionalidades.exportacao();
+				System.out.println("Voltando ao menu principal...");
+				Thread.sleep(3000);
 				break;
 				
 			case 8:
@@ -119,13 +132,29 @@ public static void cadastrosMenu() throws InterruptedException {
 				System.exit(1);
 				
 			default:
-				System.out.println(">>>Opcao inválida!<<<");
+				System.err.println(">>>Opcao inválida!<<<");
 				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
 				cadastrosMenu();
 			}
 		}
 		
+	}
+
+	public static final void limpaTela() {
+		try{
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")){
+                Runtime.getRuntime().exec("cls");
+
+            }else{
+                Runtime.getRuntime().exec("clear");
+            }
+        }
+        catch (final Exception e){
+        //  Tratar Exceptions
+        }
 	}
 
 }

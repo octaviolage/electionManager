@@ -19,20 +19,18 @@ public class Eleitor extends Registro{
 		this.secao = Integer.parseInt(palavra[4]);
 	}
 	
-	public String getMunicipio() {
-		return municipio;
+	@Override
+	public String getNome() {
+		return nome;
 	}
-
-	public int getZona() {
-		return zona;
-	}
-
-	public int getSecao() {
-		return secao;
+	
+	@Override
+	public String getComparacao() {
+		return Integer.toString(zona) + Integer.toString(secao);
 	}
 
 	@Override
 	public String toString(){
-		return nome + "; " + titulo + "; " + municipio + "; " + zona + "; " + secao;
+		return nome + "; " + titulo;
 	}
 }
