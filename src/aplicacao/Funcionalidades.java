@@ -3,113 +3,115 @@ package aplicacao;
 import arquivos.ArquivoLer;
 import registros.*;
 import registros.arvore.Arvore;
-import registros.pilha.Pilha;
+import registros.lista.Lista;
 
 public class Funcionalidades {
 
-	private static Arvore municipios = new Arvore();
-	private static Arvore urnas = new Arvore();
-	private static Pilha partidos = new Pilha();
-	private static Pilha candidatos = new Pilha();
-	private static Pilha eleitores = new Pilha();
-	private static boolean[] valida = new boolean[5];
+	private Arvore municipios = new Arvore();  //Municipios e urnas sao arvores pois terao consulta pra cada candidato e eleitor cadastrados;
+	private Arvore urnas = new Arvore();
+	private Lista partidos = new Lista();      //Para as demais foi utilizada uma lista duplamente encadeada, para facilitar a buscar por duplicatas;
+	private Lista candidatos = new Lista();
+	private Lista eleitores = new Lista();
 
-	public static void cadastroMunicipio() {
-		if (!valida[0]) {
+	public void cadastroMunicipio() {          //Os metodos de cadastro leem linha por linha dos arquivos criando objetos e validando entradas;
 			ArquivoLer arquivo = new ArquivoLer();
 			int cont = 0;
 			arquivo.abrirArquivo("municipios.txt");
 			String linha = arquivo.ler();
 			while (linha != null) {
 				Municipio municipio = new Municipio(linha);
-				municipios.inserir(municipio);
+				if (municipios.buscar(municipio.getIndice()) == null) {
+					municipios.inserir(municipio);
+					cont++;
+				}
+				else
+					System.err.println("Municipio " + municipio.getIndice() + ", ja havia sido cadastrado!");
 				linha = arquivo.ler();
-				cont++;
 			}
 			arquivo.fecharArquivo();
 			System.out.println(cont + " municipios cadastrados!");
-			valida[0] = true;
-		} else
-			System.out.println("Arquivo de municipios já cadastrado!");
 	}
 
-	public static void cadastroUrna() {
-		if (!valida[1]) {
+	public void cadastroUrna() {
 			ArquivoLer arquivo = new ArquivoLer();
 			int cont = 0;
 			arquivo.abrirArquivo("urnas.txt");
 			String linha = arquivo.ler();
 			while (linha != null) {
 				Urna urna = new Urna(linha);
-				urnas.inserir(urna);
+				if (urnas.buscar(urna.getIndice()) == null) {
+					urnas.inserir(urna);
+					cont++;
+				}
+				else
+					System.err.println("Urna " + urna.getIndice() + ", ja havia sido cadastrado!");
 				linha = arquivo.ler();
-				cont++;
 			}
 			arquivo.fecharArquivo();
 			System.out.println(cont + " urnas cadastradas!");
-			valida[1] = true;
-		} else
-			System.out.println("Arquivo de urnas já cadastrado!");
 	}
 
-	public static void cadastroCandidato() {
-		if (!valida[2]) {
+	public void cadastroCandidato() {
 			ArquivoLer arquivo = new ArquivoLer();
 			int cont = 0;
 			arquivo.abrirArquivo("candidatos.txt");
 			String linha = arquivo.ler();
 			while (linha != null) {
 				Candidato candidato = new Candidato(linha);
-				candidatos.empilhar(candidato);
-				cont++;
-				linha = arquivo.ler();
+				if (candidatos.localizar(candidato) == null) {
+					candidatos.inserir(candidato);
+					cont++;
+				}
+			else
+				System.err.println("Candidato: " + candidato.getNome() + " ja cadastrado!");
+			linha = arquivo.ler();
 			}
+			
 			arquivo.fecharArquivo();
 			System.out.println(cont + " candidatos cadastrados!");
-			valida[2] = true;
-		} else
-			System.out.println("Arquivo de candidatos já cadastrado!");
 	}
 
-	public static void cadastroEleitor() {
-		if (!valida[3]) {
+	public void cadastroEleitor() {
 			ArquivoLer arquivo = new ArquivoLer();
 			int cont = 0;
 			arquivo.abrirArquivo("eleitores.txt");
 			String linha = arquivo.ler();
 			while (linha != null) {
 				Eleitor eleitor = new Eleitor(linha);
-				eleitores.empilhar(eleitor);
-				linha = arquivo.ler();
-				cont++;
+				if (eleitores.localizar(eleitor) == null) {
+					eleitores.inserir(eleitor);
+					cont++;
+				}
+			else
+				System.err.println("Eleitor: " + eleitor.getNome() + " ja cadastrado!");
+			linha = arquivo.ler();
 			}
+			
 			arquivo.fecharArquivo();
 			System.out.println(cont + " eleitores cadastrados!");
-			valida[3] = true;
-		} else
-			System.out.println("Arquivo de candidatos já cadastrado!");
 	}
 
-	public static void cadastroPartido() {
-		if (!valida[4]) {
+	public void cadastroPartido() {
 			ArquivoLer arquivo = new ArquivoLer();
 			int cont = 0;
 			arquivo.abrirArquivo("partidos.txt");
 			String linha = arquivo.ler();
 			while (linha != null) {
 				Partido partido = new Partido(linha);
-				partidos.empilhar(partido);
-				linha = arquivo.ler();
-				cont++;
+				if (partidos.localizar(partido) == null) {
+					partidos.inserir(partido);
+					cont++;
+				}
+			else
+				System.err.println("Partido: " + partido.getIndice() + " ja cadastrado!");
+			linha = arquivo.ler();
 			}
+			
 			arquivo.fecharArquivo();
 			System.out.println(cont + " partidos cadastrados!");
-			valida[4] = true;
-		} else
-			System.out.println("Arquivo de candidatos já cadastrado!");
 	}
-
-	public static void exportacao() {
+	
+	public void exportacao() {               //Chama a funcao de associacao e exporta arquivo de cada municipio/urna cadastrada;
 		associaDados();
 		String[] aux = municipios.getNomes();
 		for (int i = 0; i < (aux.length); i++) {
@@ -121,28 +123,24 @@ public class Funcionalidades {
 		}
 		System.out.println("Arquivos gerados!");
 	}
-
-	private static void associaDados() {
-		Pilha pilha = eleitores;
-		Registro aux = pilha.desempilhar();
-		while (aux != null) {
-			if (urnas.buscar(aux.getComparacao()) != null) {
-				urnas.buscar(aux.getComparacao()).setRegistro(aux);
+	
+	private void associaDados() {           //Correlaciona candidatos com cidades e eleitores com urnas;
+		Registro[] aux = eleitores.getRegistro();
+		for(int i = 0; i < aux.length; i++) {
+			if (urnas.buscar(aux[i].getAssocia()) != null) {
+				urnas.buscar(aux[i].getAssocia()).setRegistro(aux[i]);
 			} else
-				System.err.println("AVISO: O eleitor " + aux.getNome() + " não entrou na lista"
+				System.err.println("AVISO: O eleitor " + aux[i].getNome() + " nao entrou na lista"
 						+ " porque a urna correspondente nao foi cadastrada.");
-			aux = pilha.desempilhar();
 		}
-		pilha = candidatos;
-		aux = pilha.desempilhar();
-		while (aux != null) {
-			if (municipios.buscar(aux.getComparacao()) != null) {
-				municipios.buscar(aux.getComparacao()).setRegistro(aux);
+		aux = candidatos.getRegistro();
+		for(int i = 0; i < aux.length; i++) {
+			if (municipios.buscar(aux[i].getAssocia()) != null) {
+				municipios.buscar(aux[i].getAssocia()).setRegistro(aux[i]);
 			} else
-				System.err.println("O candidato " + aux.getNome() + " não entrou na lista"
-						+ " porque o seguinte municipio nao esta cadastrado: " + aux.getComparacao());
-			aux = pilha.desempilhar();
+				System.err.println("AVISO: O candidato " + aux[i].getNome() + " nao entrou na lista"
+						+ " porque a urna correspondente nao foi cadastrada.");
 		}
 	}
-
+	
 }

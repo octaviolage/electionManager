@@ -2,14 +2,14 @@ package aplicacao;
 
 import java.util.Scanner;
 
-public class Main {
+public class Main {  //Classe com os menus para interacao do usuario
 
 	public static void main(String[] args) throws InterruptedException {
 		
 			mainMenu();
 	}
 
-	public static void mainMenu() throws InterruptedException {
+	public static void mainMenu() throws InterruptedException { //Aqui o menu principal
 		
 		Scanner ler = new Scanner(System.in);
 		int opcao = 0;
@@ -17,9 +17,9 @@ public class Main {
 			limpaTela();
 			System.out.println("=====Modulo TRE Eleicoes municipais 2020!=====");
 			System.out.println();
-			System.out.println("Escolha uma opção abaixo:");
-			System.out.println("1- Carregar arquivos para uma nova eleicao");
-			System.out.println("2- Apurar votação");
+			System.out.println("Escolha uma opcao abaixo:");
+			System.out.println("1- Carregar arquivos para eleicao");
+			System.out.println("2- Apurar votacao");
 			System.out.println("0- Sair da aplicacao");
 			System.out.printf("Sua escolha:");
 			opcao = ler.nextInt();
@@ -36,7 +36,7 @@ public class Main {
 				System.exit(1);
 				
 			default:
-				System.err.println(">>>Opcao inválida!<<<");
+				System.err.println(">>>Opcao invalida!<<<");
 				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
 				mainMenu();
@@ -45,8 +45,9 @@ public class Main {
 		
 	}
 	
-public static void cadastrosMenu() throws InterruptedException {
+public static void cadastrosMenu() throws InterruptedException { //Aqui o menu de cadastro de eleicao
 		
+		Funcionalidades executa = new Funcionalidades();
 		Scanner ler = new Scanner(System.in);
 		int opcao = 0;
 		while (opcao >= 0) {
@@ -68,35 +69,35 @@ public static void cadastrosMenu() throws InterruptedException {
 			switch (opcao) {
 			case 1:
 				limpaTela();
-				Funcionalidades.cadastroMunicipio();
+				executa.cadastroMunicipio();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 2:
 				limpaTela();
-				Funcionalidades.cadastroPartido();
+				executa.cadastroPartido();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 3:
 				limpaTela();
-				Funcionalidades.cadastroUrna();
+				executa.cadastroUrna();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 4:
 				limpaTela();
-				Funcionalidades.cadastroCandidato();
+				executa.cadastroCandidato();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 5:
 				limpaTela();
-				Funcionalidades.cadastroEleitor();
+				executa.cadastroEleitor();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
@@ -104,22 +105,22 @@ public static void cadastrosMenu() throws InterruptedException {
 			case 6:
 				limpaTela();
 				System.out.println("Buscando por arquivo de municipios");
-				Funcionalidades.cadastroMunicipio();
+				executa.cadastroMunicipio();
 				System.out.println("Buscando por arquivo de partidos");
-				Funcionalidades.cadastroPartido();
+				executa.cadastroPartido();
 				System.out.println("Buscando por arquivo de urnas");
-				Funcionalidades.cadastroUrna();
+				executa.cadastroUrna();
 				System.out.println("Buscando por arquivo de candidatos");
-				Funcionalidades.cadastroCandidato();
+				executa.cadastroCandidato();
 				System.out.println("Buscando por arquivo de eleitores");
-				Funcionalidades.cadastroEleitor();
+				executa.cadastroEleitor();
 				System.out.println("Voltando ao menu anterior...");
 				Thread.sleep(3000);
 				break;
 				
 			case 7:
 				limpaTela();
-				Funcionalidades.exportacao();
+				executa.exportacao();
 				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
 				break;
@@ -132,7 +133,7 @@ public static void cadastrosMenu() throws InterruptedException {
 				System.exit(1);
 				
 			default:
-				System.err.println(">>>Opcao inválida!<<<");
+				System.err.println(">>>Opcao invalida!<<<");
 				System.out.println("Voltando ao menu principal...");
 				Thread.sleep(3000);
 				cadastrosMenu();
@@ -141,20 +142,9 @@ public static void cadastrosMenu() throws InterruptedException {
 		
 	}
 
-	public static final void limpaTela() {
-		try{
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")){
-                Runtime.getRuntime().exec("cls");
-
-            }else{
-                Runtime.getRuntime().exec("clear");
-            }
-        }
-        catch (final Exception e){
-        //  Tratar Exceptions
-        }
+	public static final void limpaTela() { //Gambiarra pra "limpar" a tela. Aparentemente o Java nao dispoe da funcao. Uma alternativa seria adicionar 
+		for(int i = 0; i < 50; i++)        //um comando do terminal, mas isso varia de SO para SO. No linux mint, por exemplo, nao funcionou =/
+			System.out.println();
 	}
 
 }

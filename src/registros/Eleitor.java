@@ -2,7 +2,7 @@ package registros;
 
 import registros.Registro;
 
-public class Eleitor extends Registro{
+public class Eleitor extends Registro{ //Classe para criacao de um objeto Eleitor. Mais informacoes no classe Registro;
 
 	private String nome;
 	private long titulo;
@@ -25,12 +25,17 @@ public class Eleitor extends Registro{
 	}
 	
 	@Override
-	public String getComparacao() {
+	public String getIndice() {
+		return Long.toString(titulo);
+	}
+	
+	@Override
+	public String getAssocia() {
 		return Integer.toString(zona) + Integer.toString(secao);
 	}
 
 	@Override
 	public String toString(){
-		return nome + "; " + titulo;
+		return nome + ";" + titulo;
 	}
 }

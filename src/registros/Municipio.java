@@ -1,15 +1,15 @@
 package registros;
 
 import arquivos.ArquivoEscrever;
-import registros.pilha.Pilha;
+import registros.lista.Lista;
 
-public class Municipio extends Registro{
+public class Municipio extends Registro{ //Classe para criacao de um objeto Municipio. Mais informacoes no classe Registro;
 
 	private String nome;
 	private String estado;
 	private int habitantes;
 	private int vagasVereador;
-	private Pilha candidatos = new Pilha();
+	private Lista candidatos = new Lista();
 
 	public Municipio(String linha) {
 		String[] palavra = linha.split("; ");
@@ -22,13 +22,11 @@ public class Municipio extends Registro{
 	@Override
 	public void exportar() {
 		ArquivoEscrever arquivo = new ArquivoEscrever();
-		Pilha pilha = candidatos;
-		Registro aux = pilha.desempilhar();
+		Registro[] aux = candidatos.getRegistro();
 		arquivo.abrirArquivo(nome +".txt");
 		arquivo.escrever(toString());
-		while(aux != null) {
-			arquivo.escrever(aux.toString());
-			aux = pilha.desempilhar();
+		for(int i = 0; i < aux.length; i++) {
+			arquivo.escrever(aux[i].toString());
 		}
 		arquivo.fecharArquivo();
 		
@@ -36,16 +34,15 @@ public class Municipio extends Registro{
 	
 	@Override
 	public void setRegistro(Registro candidato) {
-		candidatos.empilhar(candidato);
+		candidatos.inserir(candidato);
 	}
-	
 	@Override
-	public String getComparacao() {
+	public String getIndice() {
 		return nome;
 	}
 	
 	@Override
 	public String toString() {
-		return nome + "; " + estado + "; " + vagasVereador;
+		return nome + ";" + estado + ";" + vagasVereador;
 	}
 }

@@ -2,7 +2,7 @@ package registros;
 
 import registros.Registro;
 
-public class Candidato extends Registro{
+public class Candidato extends Registro{ //Classe para criacao de um objeto Candidato. Mais informacoes no classe Registro;
 	
 	private String nome;
 	private int numero;
@@ -19,17 +19,22 @@ public class Candidato extends Registro{
 		this.cargo = palavra[4].charAt(0);
 	}
 	@Override
-	public String getComparacao() {
-		return municipio;
+	public String getIndice() {
+		return nome + ";" + numero + ";" + cargo;
 	}
 
 	@Override
 	public String getNome() {
 		return nome;
 	}
+	
+	@Override
+	public String getAssocia() {
+		return municipio;
+	}
 
 	@Override
 	public String toString(){
-		return nome + "; " + numero + "; " + partido + "; " + cargo;
+		return nome + ";" + numero + ";" + partido + ";" + cargo;
 	}
 }
