@@ -1,0 +1,3 @@
+Belo Horizonte;Minas Gerais;250000;28
+Lula;13;PT;V
+Romeu Zema;20;Novo;P
