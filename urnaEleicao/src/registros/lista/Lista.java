@@ -11,7 +11,7 @@ public class Lista { //Lista duplamente encadeada;
 		primeiro = new Celula();
 		ultimo = primeiro;
 	}
-
+/*
 	private Registro pesquisa(Long titulo, Celula inicio, Celula fim) { //Metodo de pesquisa na lista. Confesso que deu um trabalhinho viu...
 		Registro aux = null;                                                  //Compara o registro com as extremidades da lista e vai afunilindo recursivamente;
 		if (!listaVazia() & inicio != null & fim != null) {
@@ -29,7 +29,7 @@ public class Lista { //Lista duplamente encadeada;
 		return aux;
 
 	}
-
+*/
 	public void inserir(Registro registro) { //Metodo para inserir um novo item na lista;
 			Celula aux = new Celula();
 			ultimo.direita = aux;
@@ -37,7 +37,7 @@ public class Lista { //Lista duplamente encadeada;
 			aux.esquerda = ultimo;
 			ultimo = ultimo.direita;
 	}
-
+/*
 	public Registro localizar(Long titulo) { //Chama a pesquisa passando o "verdadeiro" primeiro item da lista e o ultimo como parametros, al�m do objeto a ser buscado;
 		return pesquisa(titulo, primeiro.direita, ultimo);
 	}
@@ -45,7 +45,7 @@ public class Lista { //Lista duplamente encadeada;
 	public Boolean listaVazia() { //Verifica se a lista esta vazia
 		return (primeiro == ultimo) ? true : false;
 	}
-
+*/
 	private int contaLista() { //Um contador pra auxiliar na exportacao de itens da lista;
 		Celula aux = primeiro.direita;
 		int cont = 0;
@@ -65,4 +65,23 @@ public class Lista { //Lista duplamente encadeada;
 		}
 		return registros;
 	}
+	
+	public boolean existeItemLista(Long titulo) {
+
+        Celula aux = new Celula();
+        aux = primeiro.direita;
+
+        while (aux != null) {
+
+            if (aux.item.getIndice() == titulo) {
+                aux = aux.direita;
+                return true;
+            }
+
+            aux = aux.direita;
+        }
+
+        return false;
+
+    }
 }

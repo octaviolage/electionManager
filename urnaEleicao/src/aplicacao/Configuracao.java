@@ -24,15 +24,18 @@ public static void mainMenu() throws InterruptedException {
         opcao = ler.nextInt();
         switch (opcao) {
         case 1:
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
             executa.importaArquivoUrna();
             executa.importaArquivoMunicipio();
             break;
             
         case 2:
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Exportando....");
             break;
 
         case 3:
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
             Main.mainMenu();
             break;
             

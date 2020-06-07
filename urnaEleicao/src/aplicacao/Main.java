@@ -17,6 +17,7 @@ public class Main {
 		Scanner ler = new Scanner(System.in);
 		int repete = 0;
 		Long digitou;
+		boolean candidato;
 		
 		while (repete == 0) {
 			System.out.println("===== Painel do usuario =====");
@@ -33,72 +34,52 @@ public class Main {
 					executa.eleitorJustifica(digitou);			
 				else if(resposta=="Nao")
 				mainMenu();
-
 			}
 
+		}/*
+		while(repete == 1){
+
+
+			System.out.println("****************Votação Vereador****************");
+			System.out.println("\n\n\n Informe o numero do vereador escolhido: ");
+			candidato = executa.verificaVereador(digitou = ler.nextLong());
+			if(!candidato){
+				System.out.println("Votando em: Nulo");
+				System.out.println("Tem certeza do voto? \n Sim \n Não");
+				String resposta = ler.next();
+				if(resposta=="Sim"){
+					System.out.println("***Voto nulo confirmado.***");
+					repete = 2;
+				}else if(resposta=="Nao")
+					repete = 1;
+			}else
+				System.out.println("Voto Realizado!");
 		}
-		/*
-		votaVereador();
-		votaPrefeito();
-		*/
-	}
+
+		while(repete == 2){
 
 
-/*
-	public static void votaVereador(){
-
-		Scanner ler = new Scanner(System.in);
-		int repete = 0, aux = 0, voto = 0;
-
-		System.out.println("===== Votação Vereador =====");
-		System.out.println();
-		while(repete == 0){
-				//Busca nome, numero e municipio do vereador
-			if(     ){
-			System.out.println("Nome: Numero: ");
-			
-			}
-			System.out.println();
-
-			while(aux == 0){
-				System.out.printf("Em qual vereador deseja votar: ");
-				voto = ler.nextInt();
-					//Verificacao
-				System.out.printf("Tem certeza que deseja votar em " + "?")
-				System.out.println("0- Nao \n1- Sim");
-				aux = ler.nextInt();
-			}
-		}
-		//Insere no eleitor a votacao
-
+			System.out.println("****************Votação Prefeito****************");
+			System.out.println("\n\n\n Informe o numero do prefeito escolhido: ");
+			candidato = executa.verificaPrefeito(digitou = ler.nextLong());
+			if(!candidato){
+				System.out.println("Votando em: Nulo");
+				System.out.println("Tem certeza do voto? \n Sim \n Não");
+				String resposta = ler.next();
+				if(resposta=="Sim"){
+					System.out.println("***Voto nulo confirmado.***");
+					repete = 0;
+				}else if(resposta=="Nao")
+					repete = 2;				
+			}else
+				System.out.println("Voto Realizado!");
 		
+			repete = 0;
+
+		}*/
+		mainMenu();
+
 	}
 
-	public static void votaPrefeito(){
-
-		Scanner ler = new Scanner(System.in);
-		int repete = 0, aux = 0, voto = 0;
-
-		System.out.println("===== Votação Prefeito =====");
-		System.out.println();
-		while(repete == 0){
-				//Busca nome, numero e municipio do Prefeito
-			if(     ){
-			System.out.println("Nome: Numero: ");
-			
-			}
-			System.out.println();
-
-			while(aux == 0){
-				System.out.printf("Em qual prefeito deseja votar: ");
-				voto = ler.nextInt();
-					//Verificacao
-				System.out.printf("Tem certeza que deseja votar em " + "?")
-				System.out.println("0- Nao \n1- Sim");
-				aux = ler.nextInt();
-			}
-		}
-		//Insere no eleitor a votacao
-*/
 
 	}

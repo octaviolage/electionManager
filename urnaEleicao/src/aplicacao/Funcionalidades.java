@@ -52,11 +52,11 @@ public class Funcionalidades {
 
 	public boolean verificaEleitor(long titulo) {
 
-		Scanner ler = new Scanner(System.in);
 		long aux = titulo;
-		Lista lista = urna.getLista();
-
-			return (lista.localizar(titulo)==null)? false: true;
+		Lista lista = new Lista();
+		boolean teste;
+		teste = urna.getLista().existeItemLista(titulo);
+		return teste;
 	}
 
 	public void eleitorJustifica(Long titulo){
@@ -65,41 +65,39 @@ public class Funcionalidades {
 		urna.setRegistro(eleitor);
 	}
 /*
-	public void exportacao() {
-		associaDados();
-		String[] aux = municipios.getNomes();
-		for (int i = 0; i < (aux.length); i++) {
-			municipios.buscar(aux[i]).exportar();
-		}
-		aux = urnas.getNomes();
-		for (int i = 0; i < (aux.length); i++) {
-			urnas.buscar(aux[i]).exportar();
-		}
-		System.out.println("Arquivos gerados!");
-	}
+			//AINDA NAO FUNCIONAL
 
-	private void associaDados() {
-		Pilha pilha = eleitores;
-		Registro aux = pilha.desempilhar();
-		while (aux != null) {
-			if (urnas.buscar(aux.getIndice()) != null) {
-				urnas.buscar(aux.getIndice()).setRegistro(aux);
-			} else
-				System.err.println("AVISO: O eleitor " + aux.getNome() + " não entrou na lista"
-						+ " porque a urna correspondente nao foi cadastrada.");
-			aux = pilha.desempilhar();
-		}
-		pilha = candidatos;
-		aux = pilha.desempilhar();
-		while (aux != null) {
-			if (municipios.buscar(aux.getIndice()) != null) {
-				municipios.buscar(aux.getIndice()).setRegistro(aux);
-			} else
-				System.err.println("O candidato " + aux.getNome() + " não entrou na lista"
-						+ " porque o seguinte municipio nao esta cadastrado: " + aux.getIndice());
-			aux = pilha.desempilhar();
-		}
+	public boolean verificaVereador(Long numero){
+		long aux = numero;
+		
+		if(numero == Candidato.Vereador.getnumero){
+			System.out.println("\n\n\nDeseja votar em:" + Candidato.getNome + "?");
+			System.out.println("Tem certeza do voto? \n Sim \n Não");
+				String resposta = ler.next();
+				if(resposta=="Sim")
+					return true;
+				else if(resposta=="Nao")
+					verificaVereador(aux);	
+		}else
+			return false;
 	}
-	*/
+			
+	//AINDA NAO FUNCIONAL
 
+	public boolean verificaPrefeito(Long numero){
+		long aux = numero;
+
+		if(numero == Candidato.Prefeito.getnumero){
+			System.out.println("\n\n\nDeseja votar em:" + Candidato.getNome + "?");
+			System.out.println("Tem certeza do voto? \n Sim \n Não");
+				String resposta = ler.next();
+				if(resposta=="Sim")
+					return true;
+				else if(resposta=="Nao")
+					verificaVereador(aux);	
+		}else 
+			return false;
+		
+	}
+*/
 }

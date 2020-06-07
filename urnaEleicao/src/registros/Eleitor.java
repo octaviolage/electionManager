@@ -6,9 +6,7 @@ public class Eleitor extends Registro{
 
 	private String nome;
 	private long titulo;
-	private String municipio;
-	private int zona;
-	private int secao;
+
 	
 	public Eleitor(String linha) {
 		String[] palavra = linha.split(";");
